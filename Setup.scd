@@ -11,7 +11,9 @@ s.options.memSize = 8192 * 64;
 // Boot the server
 s.boot;
 
-TempoClock.default.tempo = 90/60;
+
+~bpm = 110;
+TempoClock.default.tempo = ~bpm / 60;
 
 Task({
 
@@ -28,9 +30,18 @@ Task({
 
     // Check if sample
     ~sample = { |folder, file|
-        if (file >= d[folder].size) {
-            "Folder \"".catArgs(folder, "\" maximum number is ", d[folder].size -1).postln;
-            file = d[folder].size -1;
+        var showTotal;
+        if (file == nil) {
+            file = 0;
+            showTotal = true;
+        } {
+           if (file >= d[folder].size) {
+                file = d[folder].size -1;
+                showTotal = true;
+            };
+        };
+        if (showTotal == true) {
+           "Folder \"".catArgs(folder, "\" maximum number is ", d[folder].size -1).postln;
         };
         d[folder][file];
     };
@@ -43,10 +54,13 @@ Task({
 	3.wait;
 
 	// Activate StageLimiter - Part of the BatLib quark
+    StageLimiter.deactivate;
 	StageLimiter.activate;
 
-	~bpm = 110;
-	TempoClock.default.tempo = ~bpm / 60;
+    ~snareSets = [
+        "2, 0.75, 1.25",
+        "0.75",
+    ];
 
 	"Setup done!".postln;
 
