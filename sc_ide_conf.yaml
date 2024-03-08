@@ -1,0 +1,53 @@
+IDE:
+  editor:
+    blinkDuration: 600
+    disableBlinkingCursor: false
+    font:
+      antialias: 2
+      family: Monaco
+      size: 15
+    highlightBracketContents: true
+    highlightCurrentLine: false
+    inactiveEditorFadeAlpha: 64
+    indentWidth: 4
+    insertMatchingTokens: false
+    lineWrap: false
+    showWhitespace: false
+    spaceIndent: true
+    stepForwardEvaluation: false
+    theme: dark
+    useComboBox: false
+    useComboBoxWhenSplitting: false
+  interpreter:
+    autoStart: true
+    configFile: /Users/xavi/Library/Application Support/SuperCollider/sclang_conf.yaml
+    runtimeDir: ""
+    standalone: false
+  mainWindow:
+    detached: !QVariantMap
+      documents-dock: ""
+      help-dock: ""
+      post-dock: ""
+    geometry: AdnQywADAAAAAAA1AAAAGQAACf8AAAWfAAAANQAAADUAAAn/AAAFnwAAAAAAAAAACgAAAAA1AAAANQAACf8AAAWf
+    state: AAAA/wAAAAD9AAAAAgAAAAAAAADIAAAFWPwCAAAAAfsAAAAcAGQAbwBjAHUAbQBlAG4AdABzAC0AZABvAGMAawAAAAAAAAAFWAAAAF4A////AAAAAQAAAzsAAAVQ/AIAAAAC+wAAABIAaABlAGwAcAAtAGQAbwBjAGsBAAAAAAAAA2YAAABMAP////sAAAASAHAAbwBzAHQALQBkAG8AYwBrAQAAA2cAAAHpAAAATAD///8AAAaPAAAFUAAAAAEAAAACAAAAAQAAAAL8AAAAAA==
+  postWindow:
+    lineWrap: true
+    scrollback: 1000
+  recentDocuments: !QVariantList
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Tracks/microdOsc/7. EntheUgen VII.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Tracks/microdOsc/1. EntheUgen I.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/SynthDefs/PlayBuf.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/SynthDefs/LPlay.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Tutorial/Random Notes From Scales.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Tutorial/Patterns.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Tracks/Piano Vamps.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Effects/Reverb.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Effects/Wah.scd
+    - /Users/xavi/Library/Mobile Documents/com~apple~CloudDocs/Music/SuperCollider/Effects/Delay.scd
+  shortcuts:
+    editor-indent-auto: Ctrl+Alt+I
+    editor-move-line-down: Alt+Num+Down
+    editor-move-line-up: Alt+Num+Up
+    synth-server-plot-tree: Ctrl+Alt+N
+    synth-server-reboot: Ctrl+Alt+B
+  startWithSession: last
