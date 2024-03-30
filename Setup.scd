@@ -14,9 +14,6 @@ s.options.numInputBusChannels = 8;
 // Boot the server
 s.boot;
 
-// Samples
-~samplesPath = "../../Samples/Live Coding/".resolveRelative;
-
 // Tempo
 ~bpm = 117;
 t = TempoClock.new(110 / 60).permanent_(true);
@@ -25,12 +22,13 @@ TempoClock.default.tempo = ~bpm / 60;
 s.doWhenBooted({
     Task({
         var loadSCDFiles;
+        var samplesPath = "../../Samples/Live Coding/".resolveRelative;
 
         3.wait;
 
         // Creates a dictionary with folders and files
         d = Dictionary.new;
-        d.add(\foldernames -> PathName(~samplesPath).entries);
+        d.add(\foldernames -> PathName(samplesPath).entries);
         for (0, d[\foldernames].size - 1,
             {
                 arg i;
@@ -45,54 +43,25 @@ s.doWhenBooted({
 
         // Returns a buffer from the audio files in the sample folder
         ~buf = { |folder, file|
-            var return, showTotal = { |folder|
+            var return;
+            var showTotal = { |folder|
                 ("Folder" + folder + "maximum number is" + (d[folder].size - 1)).postln;
             };
 
-            if (d[folder].size == 0)
-            {
+            if (d[folder].size == 0) {
                 ("Folder doesn't exist or empty").postln;
                 d[folder].size;
             } {
-                if (file.isNil)
-                { d[folder] }
-                {
-                    if (file.isArray.not and: { file >= d[folder].size })
-                    {
+                if (file.isNil) {
+                    d[folder]
+                } {
+                    if (file.isArray.not and: { file >= d[folder].size }) {
                         file = d[folder].size - 1;
                         showTotal.(folder);
                     };
                     d[folder][file];
                 }
             };
-        };
-
-        // Sample sets
-        ~drumkit = {
-            arg set = "DrumSynth";
-            var drumkitsPath = ~samplesPath.catArgs("sets/", set, "/").resolveRelative;
-            var drumkitsFolder = PathName.new(drumkitsPath).folders;
-
-            ~set = Dictionary.new;
-            ~set.add(\foldernames -> PathName.new(drumkitsPath).entries);
-
-            for (0, ~set[\foldernames].size - 1,
-                {
-                    arg i;
-                    ~set.add(
-                        ~set[\foldernames][i].folderName ->
-                        ~set[\foldernames][i].entries.collect({
-                        arg sf;
-                        Buffer.read(s, sf.fullPath);
-                    }))
-                }
-            );
-
-            // Print set folders
-            set.scatArgs("contains these folders:").postln;
-            for (0, drumkitsFolder.size - 1, { | i |
-                i.asString.scatArgs(drumkitsFolder.[i].folderName).postln;
-            });
         };
 
         // Buffer for Granular SynthDefs
