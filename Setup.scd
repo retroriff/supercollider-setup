@@ -18,56 +18,30 @@ s.boot;
 ~bpm = 117;
 t = TempoClock.new(110 / 60).permanent_(true);
 TempoClock.default.tempo = ~bpm / 60;
+t = TempoClock.tempo;
 
 s.doWhenBooted({
     Task({
         var loadSCDFiles;
-        var samplesPath = "../../Samples/Live Coding/".resolveRelative;
 
         3.wait;
 
-        // Creates a dictionary with folders and files
-        d = Dictionary.new;
-        d.add(\foldernames -> PathName(samplesPath).entries);
-        for (0, d[\foldernames].size - 1,
-            {
-                arg i;
-                if (d[\foldernames][i].folderName != "sets") {
-                    d.add(d[\foldernames][i].folderName -> d[\foldernames][i].entries.collect({
-                        arg sf;
-                        Buffer.read(s, sf.fullPath);
-                    }))
-                }
-            }
-        );
+        // Samples
+        Px.loadSamples("../../Samples/Live Coding/".resolveRelative);
+        Nfx.setPresetsPath("../VST/presets/".resolveRelative);
+        d = Px.samplesDict;
+        ~buf = { |folder, file| Px.buf(folder, file) };
 
-        // Returns a buffer from the audio files in the sample folder
-        ~buf = { |folder, file|
-            var return;
-            var showTotal = { |folder|
-                ("Folder" + folder + "maximum number is" + (d[folder].size - 1)).postln;
-            };
-
-            if (d[folder].size == 0) {
-                ("Folder doesn't exist or empty").postln;
-                d[folder].size;
-            } {
-                if (file.isNil) {
-                    d[folder]
-                } {
-                    if (file.isArray.not and: { file >= d[folder].size }) {
-                        file = d[folder].size - 1;
-                        showTotal.(folder);
-                    };
-                    d[folder][file];
-                }
-            };
-        };
+        // Px unit tests (PxTest.run)
+        UnitTest.reportPasses = false;
 
         // Buffer for Granular SynthDefs
         ~g = { |folder, file|
             Buffer.readChannel(s, ~s.set(folder, file), channels:[0]);
         };
+
+        // Ndef
+        Ndef(\x).proxyspace.quant = 4;
 
         // Pattern Fading
         ~f = { |start, end, time, curve = 0|
